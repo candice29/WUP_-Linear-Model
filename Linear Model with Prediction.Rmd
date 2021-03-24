@@ -50,3 +50,20 @@ plot(SIMS~ARM,data=data)
 ```{r}
 basicNN <- ggplot(data,aes(y=SIMS,x=ARM))
 ```
+##Now add in scatterplot
+
+```{r}
+basicNN + geom_point()
+```
+
+# now add the model fit to our plot
+  
+```{r}
+basicNN + geom_point() + geom_smooth(method=lm)
+``` 
+
+# Numerical results
+
+```{r}
+cor(SIMS~ARM,data=data)
+```
