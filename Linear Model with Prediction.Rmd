@@ -76,3 +76,10 @@ summary.lm(model.1)
 ```
 
 Here is the equation of the blue line. The equation is: SIMS = -4.10 + ARM * 0.055.
+
+## Prediction
+```{r}
+newdata <- data.frame(ARM = 88, GRIP = 94)
+predict(model.1, newdata = newdata, interval = "prediction")
+```
+
