@@ -1,0 +1,52 @@
+---
+title: "Linear Model with Prediction"
+author: "Candice Fallon"
+date: "3/24/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r include=FALSE}
+require(tidyverse)
+require(tigerstats)
+require(rgl)
+require(knitr)
+if(!require("rglwidget")) {install.packages("rglwidget");require("rglwidget")}
+
+```
+## R Markdown
+
+Read about the data from the website where it is staged.  Then form three regression models; Model1 is SIMS~ARM, Model2 is SIMS~GRIP, and Model3 is SIMS~ARM+GRIP. For each model find a 95% prediction interval of SIMS given a value of 94  for GRIP and 88 for ARM. Compare Model1 with Model3 using anova. Write it up in a markdown document, push the project up to your github account and submit it back to canvas as link. 
+
+ 
+
+You can import the data directly from a link to its website.  Copy that link to the clipboard by right clicking on Raw Data and then copy link.
+
+Then issue
+
+data <- read.csv(file="paste link here",sep="",header=TRUE)  
+
+that sep=""  in the command is needed since the file is space delimited, not comma separated.  The header=TRUE is also necessary so that the names of the variables and their formats get correctly imported.
+
+New aspects of this assignment
+
+You need to create your Rmarkdown file without a starting template
+You need to create a new github repo from scratch
+
+```{r}
+data <- read.csv(file="https://onlinestatbook.com/case_studies_rvls/physical_strength/data.txt",sep="",header=TRUE)
+```
+
+###Plot scatterplot
+
+```{r}
+plot(SIMS~ARM,data=data)
+```
+
+##Now with ggplot - first select the basic data
+
+```{r}
+basicNN <- ggplot(data,aes(y=SIMS,x=ARM))
+```
