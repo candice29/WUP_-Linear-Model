@@ -38,38 +38,39 @@ You need to create a new github repo from scratch
 ```{r}
 data <- read.csv(file="https://onlinestatbook.com/case_studies_rvls/physical_strength/data.txt",sep="",header=TRUE)
 ```
+# Model 1 SIMS~ARM
 
-###Plot scatterplot
+## Plot scatterplot
 
 ```{r}
 plot(SIMS~ARM,data=data)
 ```
 
-##Now with ggplot - first select the basic data
+### Now with ggplot - first select the basic data
 
 ```{r}
 basicNN <- ggplot(data,aes(y=SIMS,x=ARM))
 ```
-##Now add in scatterplot
+### Now add in scatterplot
 
 ```{r}
 basicNN + geom_point()
 ```
 
-# now add the model fit to our plot
+### now add the model fit to our plot
   
 ```{r}
 basicNN + geom_point() + geom_smooth(method=lm)
 ``` 
 
 
-# Numerical results
+## Numerical results
 
 ```{r}
 cor(SIMS~ARM,data=data)
 ```
 
-# Inferential  (Build linear model)
+## Inferential  (Build linear model)
   
 ```{r}
 model.1 <- lm(SIMS~ARM,data=data)
@@ -87,36 +88,38 @@ newdata <- data.frame(ARM = 88, GRIP = 94)
 predict(model.1, newdata = newdata, interval = "prediction")
 ```
 
-###Plot scatterplot
+# Model 2 SIMS~GRIP
+
+## Plot scatterplot
 
 ```{r}
 plot(SIMS~GRIP,data=data)
 ```
 
-##Now with ggplot - first select the basic data
+### Now with ggplot - first select the basic data
 
 ```{r}
 basicGG <- ggplot(data,aes(y=SIMS,x=GRIP))
 ```
-##Now add in scatterplot
+### Now add in scatterplot
 
 ```{r}
 basicGG + geom_point()
 ```
 
-# now add the model fit to our plot
+### now add the model fit to our plot
   
 ```{r}
 basicGG + geom_point() + geom_smooth(method=lm)
 ``` 
 
-# Numerical results
+## Numerical results
 
 ```{r}
 cor(SIMS~GRIP,data=data)
 ```
 
-# Inferential  (Build linear model)
+## Inferential  (Build linear model)
   
 ```{r}
 model.2 <- lm(SIMS~GRIP,data=data)
@@ -129,12 +132,12 @@ SIMS=-4.8+0.045*GRIP
 
 The model suggests that r-squared is 405 and another metric, the residual standard error is 1.295.
 
-# now add the model fit to our plot
-  
 
+# Model 3 SIMS~ARM+GRIP
 
+### now add the model fit to our plot
 
-# Inferential  (Build linear model)
+## Inferential  (Build linear model)
   
 ```{r}
 model.3 <- lm(SIMS~ARM+GRIP,data=data)
@@ -145,10 +148,29 @@ predict(model.3,newdata,interval="prediction")
 The equation is: 
 SIMS=-5.43+0.037* ARM + 0.024 * GRIP 
 
-The model suggests that the r-squared is 0.536 and another metric, the residual standard error is 1.144.
+The model suggests that the r-squared is 0.536 and another metric, the residual standard error is 1.144. This model is better than the previous two, because its residual standard error is smaller and the adjusted r-squared is bigger than both.
 
+# Compare model 1 with model 3
+
+## Anova
+
+### Model1 vs Model2
+```{r}
+anova(model.1,model.2)
+```
+
+Anova didn't work this time because Model 1 and Model 2 are not nested models.
+
+### Model1 vs Model3
 ```{r}
 anova(model.1,model.3)
 ```
 
-The p-value 0.00000499, we reject the null hypothesis and conclude that the best model for predicting is model 3.
+The p-value 0.000004 which is very low. So that means that there is a significant difference between the two models. That difference is 29.45. Model 2 with GRIP AND ARM is better than the model with just ARM.
+
+### Model2 vs Model3
+```{r}
+anova(model.2,model.3)
+```
+
+The p-value is smaller than the previous and is very significant. The difference between the two models is 54, yet another significant result.
