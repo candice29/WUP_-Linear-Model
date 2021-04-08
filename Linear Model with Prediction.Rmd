@@ -79,6 +79,8 @@ summary.lm(model.1)
 Here is the equation of the blue line. The equation is: 
 SIMS=-4.10+0.055*ARM 
 
+The model suggests that r-squared is .467 and another metric, the residual standard error is 1.226.
+
 ## Prediction
 ```{r}
 newdata <- data.frame(ARM = 88, GRIP = 94)
@@ -125,8 +127,7 @@ predict(model.2,newdata,interval="prediction")
 Here is the equation of the blue line. The equation is: 
 SIMS=-4.8+0.045*GRIP 
 
-
-
+The model suggests that r-squared is 405 and another metric, the residual standard error is 1.295.
 
 # now add the model fit to our plot
   
@@ -144,6 +145,7 @@ predict(model.3,newdata,interval="prediction")
 The equation is: 
 SIMS=-5.43+0.037* ARM + 0.024 * GRIP 
 
+The model suggests that the r-squared is 0.536 and another metric, the residual standard error is 1.144.
 
 ```{r}
 anova(model.1,model.3)
