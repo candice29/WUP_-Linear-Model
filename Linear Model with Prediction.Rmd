@@ -62,6 +62,9 @@ basicNN + geom_point()
 basicNN + geom_point() + geom_smooth(method=lm)
 ``` 
 
+The equation for SIMS explained by ARM is 
+SIMS=-4.1+.0545*ARM
+
 # Numerical results
 
 ```{r}
